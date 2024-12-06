@@ -155,7 +155,7 @@ export function Assistant() {
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="text-right">
-                        <div className="text-sm capitalize">{activity.status.replace('_', ' ')}</div>
+                        <div className="text-sm capitalize">{activity.status.replace(/_/g, ' ')}</div>
                         <div className="text-sm text-gray-400">
                           <Clock className="w-4 h-4 inline mr-1" />
                           {new Date(activity.date).toLocaleDateString()}
@@ -197,7 +197,7 @@ export function Assistant() {
                     getStatusColor(selectedActivity.status)
                   )} />
                   <span className="capitalize">
-                    {selectedActivity.status.replace('_', ' ')}
+                    {selectedActivity.status.replace(/_/g, ' ')}
                   </span>
                 </div>
               </div>
