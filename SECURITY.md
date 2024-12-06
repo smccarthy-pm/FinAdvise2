@@ -14,7 +14,7 @@ If you believe you have found a security vulnerability in FinAdvise2, please rep
 
 **Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.**
 
-Instead, please send an email to [INSERT SECURITY EMAIL].
+Instead, please send an email to [shawn81404@gmail.com].
 
 Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 
