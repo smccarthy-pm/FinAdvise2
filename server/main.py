@@ -106,6 +106,10 @@ def extract_suggestions(text: str) -> List[str]:
         return ["Create task", "Check schedule", "Generate report"]
 
 # Routes
+@app.get("/")
+async def root():
+    return {"message": "Welcome to FinAdvise AI API! Visit /docs for API documentation."}
+
 @app.post("/ai/analyze")
 async def analyze_text(request: AIRequest):
     try:
