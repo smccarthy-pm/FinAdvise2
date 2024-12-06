@@ -89,10 +89,21 @@ async def generate_ai_response(text: str, history: Optional[List[dict]] = None) 
         raise HTTPException(status_code=500, detail="Error generating AI response")
 
 def extract_suggestions(text: str) -> List[str]:
-    # Simple suggestion extraction - could be enhanced
-    lines = text.split('\n')
-    suggestions = [line.strip('- ') for line in lines if line.strip().startswith('-')]
-    return suggestions[:3] if suggestions else ["Create task", "Check schedule", "Generate report"]
+    # Ensure proper Unicode handling
+    try:
+        # Handle potential bytes input
+        if isinstance(text, bytes):
+            text = text.decode('utf-8')
+        
+        # Split text into lines and handle Unicode whitespace
+        lines = text.splitlines()
+        suggestions = [line.strip('- ').strip() for line in lines 
+                      if line.strip() and line.strip().startswith('-')]
+        
+        return suggestions[:3] if suggestions else ["Create task", "Check schedule", "Generate report"]
+    except UnicodeError:
+        # Fallback for encoding issues
+        return ["Create task", "Check schedule", "Generate report"]
 
 # Routes
 @app.post("/ai/analyze")
