@@ -1,31 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { SocialLogin } from '../components/auth/SocialLogin';
 import { AuthDivider } from '../components/auth/AuthDivider';
+import { useAuth } from '../contexts/AuthContext';
 
 export function Login() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { signIn, signInWithGoogle, user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleEmailLogin = async (email: string, password: string) => {
     try {
-      // Implement actual login logic here
-      console.log('Logging in with:', email, password);
+      setError(null);
+      await signIn(email, password);
       navigate('/');
-    } catch (err) {
-      setError('Invalid email or password');
+    } catch (err: any) {
+      setError(err.message || 'Failed to sign in');
     }
   };
 
   const handleSocialLogin = async (provider: 'google' | 'microsoft') => {
     try {
-      // Implement social login logic here
-      console.log('Logging in with:', provider);
-      navigate('/');
-    } catch (err) {
-      setError(`Failed to login with ${provider}`);
+      setError(null);
+      if (provider === 'google') {
+        await signInWithGoogle();
+        navigate('/');
+      } else {
+        throw new Error('Microsoft login not implemented yet');
+      }
+    } catch (err: any) {
+      setError(err.message || `Failed to login with ${provider}`);
     }
   };
 
@@ -49,7 +61,7 @@ export function Login() {
         <SocialLogin onLogin={handleSocialLogin} />
         
         <AuthDivider />
-        
+
         <LoginForm onSubmit={handleEmailLogin} />
 
         <div className="text-center">
