@@ -34,7 +34,7 @@
     "hpp": "^0.2.3",
     "jose": "^5.2.0",
     "jsonwebtoken": "^9.0.2",
-    "lucide-react": "^0.460.0",
+    "lucide-react": "^0.462.0",
     "mongoose": "^8.8.3",
     "openai": "^4.28.0",
     "react": "^18.2.0",
