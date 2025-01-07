@@ -1,4 +1,5 @@
 import express from 'express';
+import csrf from 'csurf';
 import helmet from 'helmet';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -48,6 +49,7 @@ app.use('/api/contacts', protect, contactRoutes);
 
 // Error handling
 app.use(errorHandler);
+app.use(csrf({ cookie: true }));
 app.use(helmet());
 
 const PORT = process.env.PORT || 8000;
