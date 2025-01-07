@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
@@ -47,6 +48,7 @@ app.use('/api/contacts', protect, contactRoutes);
 
 // Error handling
 app.use(errorHandler);
+app.use(helmet());
 
 const PORT = process.env.PORT || 8000;
 
